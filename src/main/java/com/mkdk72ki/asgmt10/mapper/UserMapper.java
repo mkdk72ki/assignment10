@@ -1,7 +1,9 @@
 package com.mkdk72ki.asgmt10.mapper;
 
 import com.mkdk72ki.asgmt10.entity.User;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -19,4 +21,12 @@ public interface UserMapper {
 
     @Select("SELECT * FROM users WHERE id = #{id}")
     Optional<User> findById(int id);
+
+    // POST
+    @Select("SELECT id From users WHERE email = #{email}")
+    Optional<String> findUser(String email);
+
+    @Insert("INSERT INTO users (name, ruby, birthday, email) VALUES (#{name}, #{ruby}, #{birthday}, #{email})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    void createUser(User user);
 }
