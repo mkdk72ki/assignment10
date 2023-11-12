@@ -3,8 +3,8 @@
 前回のプロジェクトを一部改変したものになります。
   
 # 動作確認
-[READ処理](https://github.com/mkdk72ki/assignment10/feature/post/README.md#read%E5%87%A6%E7%90%86)  
-[CREATE処理](https://github.com/mkdk72ki/assignment10/feature/post/README.md#create%E5%87%A6%E7%90%86)  
+[READ処理](https://github.com/mkdk72ki/assignment10/tree/feature/post#read%E5%87%A6%E7%90%86)  
+[CREATE処理](https://github.com/mkdk72ki/assignment10/tree/feature/post#create%E5%87%A6%E7%90%86)  
   
 ## データベース
 ![image](https://github.com/mkdk72ki/assignment10/assets/143886913/18177996-5230-4057-89d7-07c74f364ad0)  
@@ -60,7 +60,7 @@ curl --location 'http://localhost:8080/user' \
 
 ![image](https://github.com/mkdk72ki/assignment10/assets/143886913/9ce5cf8a-27d7-4385-8db3-08f400b490ff)　　
 
-※`id:5, 6`は動作確認の際に登録し削除したため今回は`id:7`になっている  
+※`id:5, 6`は動作確認の際に登録、削除したため今回は`id:7`になっている  
 
     
 メールアドレスが重複する場合は409エラーを返す。  
@@ -69,20 +69,28 @@ curl --location 'http://localhost:8080/user' \
 
 ### バリデーション
 
-- name  
-![image](https://github.com/mkdk72ki/assignment10/assets/143886913/1b27e372-2fe4-472d-ab5a-0d3cbd2fe0ad)  
-![image](https://github.com/mkdk72ki/assignment10/assets/143886913/76931ebc-1ea8-4ce6-8351-c0f0ab67ab3c)  
+- nameが空文字の場合  
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/1b27e372-2fe4-472d-ab5a-0d3cbd2fe0ad)
 
-- ruby  
-![image](https://github.com/mkdk72ki/assignment10/assets/143886913/b79202c4-3945-4cf5-a2a7-ed63059a8858)  
+- nameが20字以上の場合
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/76931ebc-1ea8-4ce6-8351-c0f0ab67ab3c)
+  
+  
+- rubyが空文字の場合    
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/b79202c4-3945-4cf5-a2a7-ed63059a8858)
+  
+- rubyが50字以上の場合
 ![image](https://github.com/mkdk72ki/assignment10/assets/143886913/00a67f34-e3de-4647-a10f-45869ca4c6cc)  
 
-- birthday  
+  
+- birthdayが空文字の場合  
 ![image](https://github.com/mkdk72ki/assignment10/assets/143886913/64868698-85aa-4a61-b4c4-3515bf85a3af)
+  
+  
+- emailが空文字の場合    
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/562e817b-35e3-4b0a-adc4-41f1608a9e46)
 
-
-- email  
-![image](https://github.com/mkdk72ki/assignment10/assets/143886913/562e817b-35e3-4b0a-adc4-41f1608a9e46)  
+- emailが100字以上の場合
 ![image](https://github.com/mkdk72ki/assignment10/assets/143886913/a83c6052-d81d-425d-83ba-9182ad88a096)
 
 
