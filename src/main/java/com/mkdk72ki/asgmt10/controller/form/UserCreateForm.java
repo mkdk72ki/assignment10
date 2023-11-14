@@ -2,6 +2,7 @@ package com.mkdk72ki.asgmt10.controller.form;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,6 +24,7 @@ public class UserCreateForm {
 
     @NotBlank(message = "入力してください")
     @Length(max = 100, message = "100字以内で入力してください")
+    @Pattern(regexp = "^([a-zA-Z0-9])+([a-zA-Z0-9._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9._-])+$")
     private String email;
 
     public UserCreateForm(String name, String ruby, LocalDate birthday, String email) {
