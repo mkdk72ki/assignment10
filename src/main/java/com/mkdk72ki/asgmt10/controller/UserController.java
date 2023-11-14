@@ -37,7 +37,7 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/user")
+    @PostMapping("/users")
     public ResponseEntity<MessageResponse> createUser(@RequestBody @Validated UserCreateForm userCreateForm, UriComponentsBuilder uriComponentsBuilder){
         User user = userService.createUser(userCreateForm.getName(), userCreateForm.getRuby(), userCreateForm.getBirthday(), userCreateForm.getEmail());
         URI uri = uriComponentsBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri();
