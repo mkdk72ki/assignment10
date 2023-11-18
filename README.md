@@ -113,10 +113,9 @@ curl --location --request PATCH 'http://localhost:8080/user/7' \
 }'
 ```
 
-![delete前](https://github.com/mkdk72ki/assignment10/assets/143886913/1275a9d2-1f40-49d3-9c11-c03d36bacd44)  
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/2cdcf912-ccce-443d-a2ab-a61c76d396ed)  
 ![patchOk](https://github.com/mkdk72ki/assignment10/assets/143886913/94023e17-0e6f-4335-ab1c-af4e90b45070)  
 ![patchOkDb](https://github.com/mkdk72ki/assignment10/assets/143886913/71775836-84fc-4e51-9962-20c1144a1b2b)  
-(画像3枚目ははdelete後のものを使用、差し替え予定)
   
 ## DELETE処理
 DELETEリクエスト`http://localhost:8080/user/{id}`を実行すると、指定したIDに紐づいたレコードを削除し、メッセージをJSON形式で返す。
