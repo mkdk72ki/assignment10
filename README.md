@@ -3,10 +3,10 @@
 前回のプロジェクトを一部改変したものになります。
   
 # 動作確認
-[READ処理](https://github.com/mkdk72ki/assignment10/tree/feature/post#read%E5%87%A6%E7%90%86)  
-[CREATE処理](https://github.com/mkdk72ki/assignment10/tree/feature/post#create%E5%87%A6%E7%90%86)  
-[UPDATE処理]  
-[DELETE処理]  
+[READ処理](https://github.com/mkdk72ki/assignment10/tree/feature/patch-delete#read%E5%87%A6%E7%90%86)  
+[CREATE処理](https://github.com/mkdk72ki/assignment10/tree/feature/patch-delete#create%E5%87%A6%E7%90%86)  
+[UPDATE処理](https://github.com/mkdk72ki/assignment10/tree/feature/patch-delete#update%E5%87%A6%E7%90%86)  
+[DELETE処理](https://github.com/mkdk72ki/assignment10/tree/feature/patch-delete#delete%E5%87%A6%E7%90%86)  
   
 ## データベース
 ![image](https://github.com/mkdk72ki/assignment10/assets/143886913/18177996-5230-4057-89d7-07c74f364ad0)  
