@@ -1,10 +1,12 @@
 package com.mkdk72ki.asgmt10.mapper;
 
 import com.mkdk72ki.asgmt10.entity.User;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,4 +31,12 @@ public interface UserMapper {
     @Insert("INSERT INTO users (name, ruby, birthday, email) VALUES (#{name}, #{ruby}, #{birthday}, #{email})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void createUser(User user);
+
+    // PATCH
+    @Update("UPDATE users SET name = #{name}, ruby = #{ruby}, birthday = #{birthday}, email = #{email} WHERE id = #{id}")
+    void updateUser(User user);
+
+    // DELETE
+    @Delete("DELETE FROM users WHERE id = #{id}")
+    void deleteUser(int id);
 }

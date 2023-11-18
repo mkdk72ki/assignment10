@@ -35,4 +35,20 @@ public class User {  private Integer id;
     public String getEmail() {
         return email;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRuby(String ruby) {
+        this.ruby = ruby;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
