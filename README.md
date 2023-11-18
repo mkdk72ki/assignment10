@@ -5,6 +5,8 @@
 # 動作確認
 [READ処理](https://github.com/mkdk72ki/assignment10/tree/feature/post#read%E5%87%A6%E7%90%86)  
 [CREATE処理](https://github.com/mkdk72ki/assignment10/tree/feature/post#create%E5%87%A6%E7%90%86)  
+[UPDATE処理]  
+[DELETE処理]  
   
 ## データベース
 ![image](https://github.com/mkdk72ki/assignment10/assets/143886913/18177996-5230-4057-89d7-07c74f364ad0)  
@@ -95,4 +97,31 @@ curl --location 'http://localhost:8080/user' \
 
 - emailの形式が不適切な場合  
 ![emailValidate](https://github.com/mkdk72ki/assignment10/assets/143886913/6d36eccc-4831-4e48-89a3-78bb36e82e20)  
+　　
+
+## UPDATE処理
+PATCHリクエストを実行すると、リクエストボディに含まれた情報でDBを更新し、メッセージをJSON形式で返す。
+
+``` cURLコマンド
+curl --location --request PATCH 'http://localhost:8080/user/7' \
+--header 'Content-Type: application/json' \
+--data-raw ' {
+    "name": "谷口敦也",
+    "ruby": "taniguchi atsuya",
+    "birthday": "1998-06-26",
+    "email": "taniguchi@mkdk.com"
+}'
+```
+
+![delete前](https://github.com/mkdk72ki/assignment10/assets/143886913/1275a9d2-1f40-49d3-9c11-c03d36bacd44)  
+![patchOk](https://github.com/mkdk72ki/assignment10/assets/143886913/94023e17-0e6f-4335-ab1c-af4e90b45070)  
+![patchOkDb](https://github.com/mkdk72ki/assignment10/assets/143886913/71775836-84fc-4e51-9962-20c1144a1b2b)  
+(画像3枚目ははdelete後のものを使用、差し替え予定)
+  
+## DELETE処理
+DELETEリクエスト`http://localhost:8080/user/{id}`を実行すると、指定したIDに紐づいたレコードを削除し、メッセージをJSON形式で返す。
+  
+![delete前](https://github.com/mkdk72ki/assignment10/assets/143886913/8e407e5b-5560-4b40-9de0-0d3f5093394d)  
+![deleteOk](https://github.com/mkdk72ki/assignment10/assets/143886913/79efd993-4aa6-4796-b783-79a63a1b08b6)  
+![deleteOkDb](https://github.com/mkdk72ki/assignment10/assets/143886913/fa102c02-71df-460a-b4ae-7ad782d411a1)  
 
