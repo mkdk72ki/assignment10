@@ -91,6 +91,8 @@ curl --location 'http://localhost:8080/user' \
 ![image](https://github.com/mkdk72ki/assignment10/assets/143886913/562e817b-35e3-4b0a-adc4-41f1608a9e46)
 
 - emailが100字以上の場合
-![image](https://github.com/mkdk72ki/assignment10/assets/143886913/a83c6052-d81d-425d-83ba-9182ad88a096)
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/a83c6052-d81d-425d-83ba-9182ad88a096)  
 
+- emailの形式が不適切な場合  
+![emailValidate](https://github.com/mkdk72ki/assignment10/assets/143886913/6d36eccc-4831-4e48-89a3-78bb36e82e20)  
 
