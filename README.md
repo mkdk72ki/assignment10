@@ -3,8 +3,10 @@
 前回のプロジェクトを一部改変したものになります。
   
 # 動作確認
-[READ処理](https://github.com/mkdk72ki/assignment10/tree/feature/post#read%E5%87%A6%E7%90%86)  
-[CREATE処理](https://github.com/mkdk72ki/assignment10/tree/feature/post#create%E5%87%A6%E7%90%86)  
+[READ処理](https://github.com/mkdk72ki/assignment10/tree/feature/patch-delete#read%E5%87%A6%E7%90%86)  
+[CREATE処理](https://github.com/mkdk72ki/assignment10/tree/feature/patch-delete#create%E5%87%A6%E7%90%86)  
+[UPDATE処理](https://github.com/mkdk72ki/assignment10/tree/feature/patch-delete#update%E5%87%A6%E7%90%86)  
+[DELETE処理](https://github.com/mkdk72ki/assignment10/tree/feature/patch-delete#delete%E5%87%A6%E7%90%86)  
   
 ## データベース
 ![image](https://github.com/mkdk72ki/assignment10/assets/143886913/18177996-5230-4057-89d7-07c74f364ad0)  
@@ -91,6 +93,34 @@ curl --location 'http://localhost:8080/user' \
 ![image](https://github.com/mkdk72ki/assignment10/assets/143886913/562e817b-35e3-4b0a-adc4-41f1608a9e46)
 
 - emailが100字以上の場合
-![image](https://github.com/mkdk72ki/assignment10/assets/143886913/a83c6052-d81d-425d-83ba-9182ad88a096)
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/a83c6052-d81d-425d-83ba-9182ad88a096)  
 
+- emailの形式が不適切な場合  
+![emailValidate](https://github.com/mkdk72ki/assignment10/assets/143886913/6d36eccc-4831-4e48-89a3-78bb36e82e20)  
+　　
+
+## UPDATE処理
+PATCHリクエストを実行すると、リクエストボディに含まれた情報でDBを更新し、メッセージをJSON形式で返す。
+
+``` cURLコマンド
+curl --location --request PATCH 'http://localhost:8080/user/7' \
+--header 'Content-Type: application/json' \
+--data-raw ' {
+    "name": "谷口敦也",
+    "ruby": "taniguchi atsuya",
+    "birthday": "1998-06-26",
+    "email": "taniguchi@mkdk.com"
+}'
+```
+
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/2cdcf912-ccce-443d-a2ab-a61c76d396ed)  
+![patchOk](https://github.com/mkdk72ki/assignment10/assets/143886913/94023e17-0e6f-4335-ab1c-af4e90b45070)  
+![patchOkDb](https://github.com/mkdk72ki/assignment10/assets/143886913/71775836-84fc-4e51-9962-20c1144a1b2b)  
+  
+## DELETE処理
+DELETEリクエスト`http://localhost:8080/user/{id}`を実行すると、指定したIDに紐づいたレコードを削除し、メッセージをJSON形式で返す。
+  
+![delete前](https://github.com/mkdk72ki/assignment10/assets/143886913/8e407e5b-5560-4b40-9de0-0d3f5093394d)  
+![deleteOk](https://github.com/mkdk72ki/assignment10/assets/143886913/79efd993-4aa6-4796-b783-79a63a1b08b6)  
+![deleteOkDb](https://github.com/mkdk72ki/assignment10/assets/143886913/fa102c02-71df-460a-b4ae-7ad782d411a1)  
 

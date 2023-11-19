@@ -1,12 +1,15 @@
 package com.mkdk72ki.asgmt10.controller;
 
 import com.mkdk72ki.asgmt10.controller.form.UserCreateForm;
+import com.mkdk72ki.asgmt10.controller.form.UserUpdateForm;
 import com.mkdk72ki.asgmt10.controller.response.MessageResponse;
 import com.mkdk72ki.asgmt10.entity.User;
 import com.mkdk72ki.asgmt10.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +34,7 @@ public class UserController {
         return getUsers;
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<User> findById(@PathVariable int id){
         User user = userService.findById(id);
         return ResponseEntity.ok(user);
@@ -43,5 +46,19 @@ public class UserController {
         URI uri = uriComponentsBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri();
         MessageResponse body = new MessageResponse("登録しました");
         return ResponseEntity.created(uri).body(body);
+    }
+
+    @PatchMapping("/users/{id}")
+    public ResponseEntity<MessageResponse> updateUser(@PathVariable int id, @RequestBody @Validated UserUpdateForm userUpdateForm){
+        userService.updateUser(id, userUpdateForm.getName(), userUpdateForm.getRuby(), userUpdateForm.getBirthday(), userUpdateForm.getEmail());
+        MessageResponse message = new MessageResponse("更新しました");
+        return ResponseEntity.ok(message);
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<MessageResponse> deleteUser(@PathVariable int id){
+        userService.deleteUser(id);
+        MessageResponse message = new MessageResponse("削除しました");
+        return ResponseEntity.ok(message);
     }
 }

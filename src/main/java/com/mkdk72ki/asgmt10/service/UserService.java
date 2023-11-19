@@ -48,4 +48,32 @@ public class UserService {
             return user;
         }
     }
+
+    // PATCH
+    public User updateUser(int id, String name, String ruby, LocalDate birthday, String email){
+        User user  = this.userMapper.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("user not found"));
+        if(name != null){
+            user.setName(name);
+        }
+        if(ruby != null){
+            user.setRuby(ruby);
+        }
+        if(birthday != null) {
+            user.setBirthday(birthday);
+        }
+        if(email != null){
+            user.setEmail(email);
+        }
+        this.userMapper.updateUser(user);
+        return user;
+    }
+
+    // DELETE
+    public void deleteUser(int id){
+        userMapper.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("user not found"));
+        userMapper.deleteUser(id);
+    }
+
 }
