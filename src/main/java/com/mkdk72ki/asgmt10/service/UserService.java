@@ -50,23 +50,11 @@ public class UserService {
     }
 
     // PATCH
-    public User updateUser(int id, String name, String ruby, LocalDate birthday, String email){
+    public void updateUser(int id, String name, String ruby, LocalDate birthday, String email){
         User user  = this.userMapper.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("user not found"));
-        if(name != null){
-            user.setName(name);
-        }
-        if(ruby != null){
-            user.setRuby(ruby);
-        }
-        if(birthday != null) {
-            user.setBirthday(birthday);
-        }
-        if(email != null){
-            user.setEmail(email);
-        }
+            user.updateUser(name, ruby, birthday, email);
         this.userMapper.updateUser(user);
-        return user;
     }
 
     // DELETE

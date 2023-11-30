@@ -51,4 +51,20 @@ public class User {  private Integer id;
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void updateUser(String name, String ruby, LocalDate birthday, String email){
+        if(name != null){
+            this.setName(name);
+        }
+        if(ruby != null){
+            this.setRuby(ruby);
+        }
+        if(birthday != null) {
+            this.setBirthday(birthday);
+        }
+        if(email != null){
+            this.setEmail(email);
+        }
+    }
+  
 }
