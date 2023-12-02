@@ -53,7 +53,7 @@ public class User {
         this.email = email;
     }
 
-    public void updateUser(String name, String ruby, LocalDate birthday, String email) {
+    public void update(String name, String ruby, LocalDate birthday, String email) {
         if (name != null) {
 
             this.setName(name);
