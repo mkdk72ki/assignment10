@@ -2,7 +2,8 @@ package com.mkdk72ki.asgmt10.entity;
 
 import java.time.LocalDate;
 
-public class User {  private Integer id;
+public class User {
+    private Integer id;
     private String name;
     private String ruby;
     private LocalDate birthday;
@@ -51,4 +52,31 @@ public class User {  private Integer id;
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void update(String name, String ruby, LocalDate birthday, String email) {
+        if (name != null) {
+
+            this.setName(name);
+
+        }
+
+        if (ruby != null) {
+
+            this.setRuby(ruby);
+
+        }
+
+        if (birthday != null) {
+
+            this.setBirthday(birthday);
+
+        }
+
+        if (email != null) {
+
+            this.setEmail(email);
+
+        }
+    }
+
 }
