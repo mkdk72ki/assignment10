@@ -1,0 +1,86 @@
+package com.mkdk72ki.asgmt10.service;
+
+import com.mkdk72ki.asgmt10.entity.User;
+import com.mkdk72ki.asgmt10.exception.UserNotFoundException;
+import com.mkdk72ki.asgmt10.mapper.UserMapper;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+@ExtendWith(MockitoExtension.class)
+class UserServiceTest {
+
+    @InjectMocks
+    UserService userService;
+
+    @Mock
+    UserMapper userMapper;
+
+    @Test
+    public void 正常に全てのユーザーが返されること() throws Exception {
+        List<User> user = List.of(
+                new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com"),
+                new User(2, "加藤花子", "kato hanako", LocalDate.of(2000, 11, 23), "kato@mkdk.com"),
+                new User(3, "鈴木祐介", "suzuki yusuke", LocalDate.of(2005, 07, 16), "suzuki@mkdk.com")
+        );
+        doReturn(user).when(userMapper).findAll();
+        List<User> actual = userService.findUsers(null);
+        assertThat(actual).isEqualTo(user);
+        verify(userMapper, times(1)).findAll();
+    }
+
+    @Test
+    public void ルビを指定したときに正常にルビと前方一致したユーザーが返されること() throws Exception {
+        List<User> user = List.of(
+                new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com"),
+                new User(2, "加藤花子", "kato hanako", LocalDate.of(2000, 11, 23), "kato@mkdk.com"),
+                new User(3, "鈴木祐介", "suzuki yusuke", LocalDate.of(2005, 07, 16), "suzuki@mkdk.com")
+        );
+        doReturn(user).when(userMapper).findByRuby("yamada");
+        List<User> actual = userService.findUsers("yamada");
+        assertThat(actual).isEqualTo(user);
+        verify(userMapper, times(1)).findByRuby("yamada");
+    }
+
+    @Test
+    public void ユーザーの存在しないルビを指定したときに適切な例外が返されること() throws Exception {
+        List<User> user = List.of(
+                new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com"),
+                new User(2, "加藤花子", "kato hanako", LocalDate.of(2000, 11, 23), "kato@mkdk.com"),
+                new User(3, "鈴木祐介", "suzuki yusuke", LocalDate.of(2005, 07, 16), "suzuki@mkdk.com")
+        );
+        assertThrows(UserNotFoundException.class, () -> {
+            userService.findUsers("john");
+        });
+    }
+
+    @Test
+    public void 存在するユーザーのIDを指定したときに正常にユーザーが返されること() throws Exception {
+        User user = new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com");
+        doReturn(Optional.of(user)).when(userMapper).findById(1);
+        User actual = userService.findById(1);
+        assertThat(actual).isEqualTo(user);
+        verify(userMapper, times(1)).findById(1);
+    }
+
+    @Test
+    public void 存在しないユーザーのIDを指定したときに適切な例外が返されること() throws Exception {
+        doReturn(Optional.empty()).when(userMapper).findById(99);
+        assertThrows(UserNotFoundException.class, () -> {
+            userService.findById(99);
+        });
+    }
+
+}
