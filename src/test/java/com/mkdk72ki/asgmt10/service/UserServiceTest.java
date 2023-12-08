@@ -45,8 +45,8 @@ class UserServiceTest {
     public void ルビを指定したときに正常にルビと前方一致したユーザーが返されること() throws Exception {
         List<User> user = List.of(
                 new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com"),
-                new User(2, "加藤花子", "kato hanako", LocalDate.of(2000, 11, 23), "kato@mkdk.com"),
-                new User(3, "鈴木祐介", "suzuki yusuke", LocalDate.of(2005, 07, 16), "suzuki@mkdk.com")
+                new User(2, "山田花子", "yamada hanako", LocalDate.of(2000, 11, 23), "hanako@mkdk.com"),
+                new User(3, "山田祐介", "yamada yusuke", LocalDate.of(2005, 07, 16), "yusuke@mkdk.com")
         );
         doReturn(user).when(userMapper).findByRuby("yamada");
         List<User> actual = userService.findUsers("yamada");
