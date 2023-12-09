@@ -26,9 +26,6 @@ public class UserService {
             getUsers = userMapper.findAll();
         } else {
             getUsers = userMapper.findByRuby(ruby);
-            if (getUsers.isEmpty()) {
-                throw new UserNotFoundException("user not found");
-            }
         }
         return getUsers;
     }
