@@ -28,8 +28,9 @@ GETリクエスト `http://localhost:8080/users?ruby={ruby}` を実行すると�
 ![image](https://github.com/mkdk72ki/assignment10/assets/143886913/40fa355b-bad8-4925-96f1-5b68a26ec60d)  
 ![image](https://github.com/mkdk72ki/assignment10/assets/143886913/d57d6ac1-d491-4d12-97cd-d375a8e366d7)  
 
-存在しないルビを指定した場合は404エラーを返す。  
-![image](https://github.com/mkdk72ki/assignment10/assets/143886913/4673b643-53fe-4311-af56-eb346741cb79)
+存在しないルビを指定した場合は空のリストを返す。  
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/5c8f01e9-4712-4c4b-b027-03589dfadae0)
+
 
 
 ### IDによる取得
