@@ -1,6 +1,7 @@
 package com.mkdk72ki.asgmt10.entity;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class User {
     private Integer id;
@@ -79,4 +80,15 @@ public class User {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User user)) return false;
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(ruby, user.ruby) && Objects.equals(birthday, user.birthday) && Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, ruby, birthday, email);
+    }
 }
