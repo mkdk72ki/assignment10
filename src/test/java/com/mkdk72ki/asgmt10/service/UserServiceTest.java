@@ -55,15 +55,12 @@ class UserServiceTest {
     }
 
     @Test
-    public void ユーザーの存在しないルビを指定したときに適切な例外が返されること() throws Exception {
-        List<User> user = List.of(
-                new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com"),
-                new User(2, "加藤花子", "kato hanako", LocalDate.of(2000, 11, 23), "kato@mkdk.com"),
-                new User(3, "鈴木祐介", "suzuki yusuke", LocalDate.of(2005, 07, 16), "suzuki@mkdk.com")
-        );
-        assertThrows(UserNotFoundException.class, () -> {
-            userService.findUsers("john");
-        });
+    public void ユーザーの存在しないルビを指定したときに空のリストが返されること() throws Exception {
+        List<User> user = List.of();
+        doReturn(user).when(userMapper).findByRuby("john");
+        List<User> actual = userService.findUsers("john");
+        assertThat(actual).isEqualTo(user);
+        verify(userMapper, times(1)).findByRuby("john");
     }
 
     @Test
