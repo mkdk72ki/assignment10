@@ -32,8 +32,8 @@ class UserMapperTest {
                 .hasSize(3)
                 .contains(
                         new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com"),
-                        new User(2, "加藤花子", "kato hanako", LocalDate.of(2000, 11, 23), "kato@mkdk.com"),
-                        new User(3, "鈴木祐介", "suzuki yusuke", LocalDate.of(2005, 07, 16), "suzuki@mkdk.com")
+                        new User(2, "山田花子", "yamada hanako", LocalDate.of(2000, 11, 23), "hanako@mkdk.com"),
+                        new User(3, "小山田祐介", "oyamada yusuke", LocalDate.of(2005, 07, 16), "oyamada@mkdk.com")
                 );
     }
 
@@ -43,9 +43,10 @@ class UserMapperTest {
     void ルビで指定したユーザーが取得できること() {
         List<User> users = userMapper.findByRuby("yamada");
         assertThat(users)
-                .hasSize(1)
+                .hasSize(2)
                 .contains(
-                        new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com")
+                        new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com"),
+                        new User(2, "山田花子", "yamada hanako", LocalDate.of(2000, 11, 23), "hanako@mkdk.com")
                 );
     }
 

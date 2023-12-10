@@ -5,12 +5,12 @@ users:
     birthday: "1990-03-04"
     email: "yamada@mkdk.com"
   - id: 2
-    name: "加藤花子"
-    ruby: "kato hanako"
+    name: "山田花子"
+    ruby: "yamada hanako"
     birthday: "2000-11-23"
-    email: "kato@mkdk.com"
+    email: "hanako@mkdk.com"
   - id: 3
-    name: "鈴木祐介"
-    ruby: "suzuki yusuke"
+    name: "小山田祐介"
+    ruby: "oyamada yusuke"
     birthday: "2005-07-16"
-    email: "suzuki@mkdk.com"
+    email: "oyamada@mkdk.com"
