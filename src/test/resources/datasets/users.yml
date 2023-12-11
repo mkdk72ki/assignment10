@@ -14,3 +14,8 @@ users:
     ruby: "oyamada yusuke"
     birthday: "2005-07-16"
     email: "oyamada@mkdk.com"
+  - id: 4
+    name: "山田次郎"
+    ruby: "YAMADA JIRO"
+    birthday: "1995-12-30"
+    email: "jiro@mkdk.com"
