@@ -25,7 +25,7 @@ public class UserService {
         if (Objects.isNull(ruby)) {
             getUsers = userMapper.findAll();
         } else {
-            getUsers = userMapper.findByRuby(ruby);
+            getUsers = userMapper.findByRuby(ruby.toLowerCase());
         }
         return getUsers;
     }
