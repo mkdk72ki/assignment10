@@ -21,7 +21,6 @@ public interface UserMapper {
     @Select("SELECT * FROM users WHERE BINARY ruby LIKE CONCAT(#{ruby}, '%')")
     List<User> findByRuby(String ruby);
 
-
     @Select("SELECT * FROM users WHERE id = #{id}")
     Optional<User> findById(int id);
 
