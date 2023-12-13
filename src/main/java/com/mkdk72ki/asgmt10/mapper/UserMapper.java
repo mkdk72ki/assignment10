@@ -25,8 +25,8 @@ public interface UserMapper {
     Optional<User> findById(int id);
 
     // POST
-    @Select("SELECT id FROM users WHERE email = #{email}")
-    Optional<String> findUser(String email);
+    @Select("SELECT * FROM users WHERE email = #{email}")
+    Optional<User> findUser(String email);
 
     @Insert("INSERT INTO users (name, ruby, birthday, email) VALUES (#{name}, #{ruby}, #{birthday}, #{email})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
