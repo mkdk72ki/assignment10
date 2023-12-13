@@ -1,6 +1,7 @@
 package com.mkdk72ki.asgmt10.service;
 
 import com.mkdk72ki.asgmt10.entity.User;
+import com.mkdk72ki.asgmt10.exception.UserExistsException;
 import com.mkdk72ki.asgmt10.exception.UserNotFoundException;
 import com.mkdk72ki.asgmt10.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -27,6 +29,8 @@ class UserServiceTest {
 
     @Mock
     UserMapper userMapper;
+
+    // GET
 
     @Test
     public void 正常に全てのユーザーが返されること() throws Exception {
@@ -77,6 +81,28 @@ class UserServiceTest {
         doReturn(Optional.empty()).when(userMapper).findById(99);
         assertThrows(UserNotFoundException.class, () -> {
             userService.findById(99);
+        });
+    }
+
+    // POST
+
+    @Test
+    public void 正常に新規のユーザーが登録できること() throws Exception {
+        User user = new User(null, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com");
+        doNothing().when(userMapper).createUser(user);
+
+        User actual = userService.createUser("山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com");
+        assertThat(actual).isEqualTo(user);
+        verify(userMapper, times(1)).createUser(user);
+    }
+
+    @Test
+    public void 既に存在するメールアドレスを指定したときに適切な例外が返されること() throws Exception {
+        User user = new User(null, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com");
+        String email = "yamada@mkdk.com";
+        doReturn(Optional.of(user)).when(userMapper).findUser(email);
+        assertThrows(UserExistsException.class, () -> {
+            userService.createUser("山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com");
         });
     }
 
