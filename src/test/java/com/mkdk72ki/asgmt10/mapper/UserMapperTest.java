@@ -82,7 +82,7 @@ class UserMapperTest {
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
-    void 存在するメールアドレスを指定したときに紐づいたユーザーが取得できること() {
+    void 存在するメールアドレスを取得したときにそのユーザーのレコードが取得できること() {
         User user = new User(null, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com");
         Optional<User> users = userMapper.findUser(user.getEmail());
         assertThat(users).contains(
