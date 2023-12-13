@@ -23,6 +23,8 @@ class UserMapperTest {
     @Autowired
     UserMapper userMapper;
 
+    // GET
+
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
@@ -77,8 +79,6 @@ class UserMapperTest {
         assertThat(users).isEmpty();
     }
 
-    // POST
-
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
@@ -96,6 +96,8 @@ class UserMapperTest {
         Optional<User> user = userMapper.findUser("john@mkdk.com");
         assertThat(user).isEmpty();
     }
+
+    // POST
 
     @Test
     @DataSet(value = "datasets/users.yml")
