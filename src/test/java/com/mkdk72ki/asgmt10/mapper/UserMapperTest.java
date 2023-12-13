@@ -77,4 +77,34 @@ class UserMapperTest {
         assertThat(users).isEmpty();
     }
 
+    // POST
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @Transactional
+    void 存在するメールアドレスを指定したときに紐づいたユーザーが取得できること() {
+        User user = new User(null, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com");
+        Optional<User> users = userMapper.findUser(user.getEmail());
+        assertThat(users).contains(
+                new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com")
+        );
+    }
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @Transactional
+    void 新たにレコードが登録できること() {
+        User user = new User(null, "加藤花子", "kato hanako", LocalDate.of(1999, 02, 22), "kato@mkdk.com");
+        userMapper.createUser(user);
+        List<User> users = userMapper.findAll();
+        assertThat(users).hasSize(5)
+                .contains(
+                        new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com"),
+                        new User(2, "山田花子", "yamada hanako", LocalDate.of(2000, 11, 23), "hanako@mkdk.com"),
+                        new User(3, "小山田祐介", "oyamada yusuke", LocalDate.of(2005, 07, 16), "oyamada@mkdk.com"),
+                        new User(4, "山田次郎", "YAMADA JIRO", LocalDate.of(1995, 12, 30), "jiro@mkdk.com"),
+                        user
+                );
+    }
+
 }
