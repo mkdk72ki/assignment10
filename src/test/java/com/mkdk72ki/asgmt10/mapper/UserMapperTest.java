@@ -23,6 +23,8 @@ class UserMapperTest {
     @Autowired
     UserMapper userMapper;
 
+    // GET
+
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
@@ -75,6 +77,43 @@ class UserMapperTest {
     void 存在しないIDを指定したときに取得されるユーザーが空であること() {
         Optional<User> users = userMapper.findById(99);
         assertThat(users).isEmpty();
+    }
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @Transactional
+    void 存在するメールアドレスを指定したときにそのユーザーのレコードが取得できること() {
+        Optional<User> user = userMapper.findUser("yamada@mkdk.com");
+        assertThat(user).contains(
+                new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com")
+        );
+    }
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @Transactional
+    void 存在しないメールアドレスを指定したときに取得されるユーザーが空であること() {
+        Optional<User> user = userMapper.findUser("john@mkdk.com");
+        assertThat(user).isEmpty();
+    }
+
+    // POST
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @Transactional
+    void 新たにレコードが登録できること() {
+        User user = new User(null, "加藤花子", "kato hanako", LocalDate.of(1999, 02, 22), "kato@mkdk.com");
+        userMapper.createUser(user);
+        List<User> users = userMapper.findAll();
+        assertThat(users).hasSize(5)
+                .contains(
+                        new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com"),
+                        new User(2, "山田花子", "yamada hanako", LocalDate.of(2000, 11, 23), "hanako@mkdk.com"),
+                        new User(3, "小山田祐介", "oyamada yusuke", LocalDate.of(2005, 07, 16), "oyamada@mkdk.com"),
+                        new User(4, "山田次郎", "YAMADA JIRO", LocalDate.of(1995, 12, 30), "jiro@mkdk.com"),
+                        user
+                );
     }
 
 }
