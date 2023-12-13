@@ -82,10 +82,9 @@ class UserMapperTest {
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
-    void 存在するメールアドレスを取得したときにそのユーザーのレコードが取得できること() {
-        User user = new User(null, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com");
-        Optional<User> users = userMapper.findUser(user.getEmail());
-        assertThat(users).contains(
+    void 存在するメールアドレスを指定したときにそのユーザーのレコードが取得できること() {
+        Optional<User> user = userMapper.findUser("yamada@mkdk.com");
+        assertThat(user).contains(
                 new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com")
         );
     }
@@ -94,9 +93,8 @@ class UserMapperTest {
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void 存在しないメールアドレスを指定したときに取得されるユーザーが空であること() {
-        User user = new User(null, "ジョン", "john", LocalDate.of(1996, 01, 23), "john@mkdk.com");
-        Optional<User> users = userMapper.findUser(user.getEmail());
-        assertThat(users).isEmpty();
+        Optional<User> user = userMapper.findUser("john@mkdk.com");
+        assertThat(user).isEmpty();
     }
 
     @Test
