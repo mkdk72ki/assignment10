@@ -93,6 +93,15 @@ class UserMapperTest {
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
+    void 存在しないメールアドレスを指定したときに取得されるユーザーが空であること() {
+        User user = new User(null, "ジョン", "john", LocalDate.of(1996, 01, 23), "john@mkdk.com");
+        Optional<User> users = userMapper.findUser(user.getEmail());
+        assertThat(users).isEmpty();
+    }
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @Transactional
     void 新たにレコードが登録できること() {
         User user = new User(null, "加藤花子", "kato hanako", LocalDate.of(1999, 02, 22), "kato@mkdk.com");
         userMapper.createUser(user);
