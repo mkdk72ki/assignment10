@@ -106,4 +106,79 @@ class UserServiceTest {
         });
     }
 
+    // PATCH
+
+    @Test
+    public void 正常にユーザーの情報が更新できること() throws Exception {
+        doReturn(Optional.of(new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com"))).when(userMapper).findById(1);
+        User user = new User(1, "加藤花子", "kato hanako", LocalDate.of(2000, 11, 23), "kato@mkdk.com");
+        User actual = userService.updateUser(user.getId(), user.getName(), user.getRuby(), user.getBirthday(), user.getEmail());
+        assertThat(actual).isEqualTo(user);
+        verify(userMapper, times(1)).findById(1);
+        verify(userMapper, times(1)).updateUser(user);
+    }
+
+    @Test
+    public void 正常にユーザーの名前とルビのみが更新できること() throws Exception {
+        doReturn(Optional.of(new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com"))).when(userMapper).findById(1);
+        User user = new User(1, "加藤花子", "kato hanako", null, null);
+        User actual = userService.updateUser(user.getId(), user.getName(), user.getRuby(), user.getBirthday(), user.getEmail());
+        User updatedUser = new User(1, "加藤花子", "kato hanako", LocalDate.of(1990, 03, 04), "yamada@mkdk.com");
+        assertThat(actual).isEqualTo(updatedUser);
+        verify(userMapper, times(1)).findById(1);
+        verify(userMapper, times(1)).updateUser(updatedUser);
+    }
+
+    @Test
+    public void 正常にユーザーの誕生日のみが更新できること() throws Exception {
+        doReturn(Optional.of(new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com"))).when(userMapper).findById(1);
+        User user = new User(1, null, null, LocalDate.of(2000, 11, 23), null);
+        User actual = userService.updateUser(user.getId(), user.getName(), user.getRuby(), user.getBirthday(), user.getEmail());
+        User updatedUser = new User(1, "山田太郎", "yamada taro", LocalDate.of(2000, 11, 23), "yamada@mkdk.com");
+        assertThat(actual).isEqualTo(updatedUser);
+        verify(userMapper, times(1)).findById(1);
+        verify(userMapper, times(1)).updateUser(updatedUser);
+    }
+
+    @Test
+    public void 正常にユーザーのメールアドレスのみが更新できること() throws Exception {
+        doReturn(Optional.of(new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com"))).when(userMapper).findById(1);
+        User user = new User(1, null, null, null, "taro@mkdk.com");
+        User actual = userService.updateUser(user.getId(), user.getName(), user.getRuby(), user.getBirthday(), user.getEmail());
+        User updatedUser = new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "taro@mkdk.com");
+        assertThat(actual).isEqualTo(updatedUser);
+        verify(userMapper, times(1)).findById(1);
+        verify(userMapper, times(1)).updateUser(updatedUser);
+    }
+
+    @Test
+    public void 更新時に存在しないユーザーを指定したときに適切な例外が返されること() throws Exception {
+        doReturn(Optional.empty()).when(userMapper).findById(99);
+        assertThrows(UserNotFoundException.class, () -> {
+            userService.updateUser(99, "ジョン", "john", LocalDate.of(1999, 01, 23), "john@mkdk.com");
+        });
+        verify(userMapper, times(1)).findById(99);
+        verify(userMapper, times(0)).updateUser(new User(99, "ジョン", "john", LocalDate.of(1999, 01, 23), "john@mkdk.com"));
+    }
+
+    // DELETE
+
+    @Test
+    public void 正常にユーザーが削除できること() throws Exception {
+        doReturn(Optional.of(new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com"))).when(userMapper).findById(1);
+        userService.deleteUser(1);
+        verify(userMapper, times(1)).findById(1);
+        verify(userMapper, times(1)).deleteUser(1);
+    }
+
+    @Test
+    public void 削除時に存在しないユーザーを指定したときに適切な例外が返されること() throws Exception {
+        doReturn(Optional.empty()).when(userMapper).findById(99);
+        assertThrows(UserNotFoundException.class, () -> {
+            userService.deleteUser(99);
+        });
+        verify(userMapper, times(1)).findById(99);
+        verify(userMapper, times(0)).deleteUser(99);
+    }
+
 }
