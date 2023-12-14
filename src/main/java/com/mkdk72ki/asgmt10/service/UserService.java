@@ -47,11 +47,12 @@ public class UserService {
     }
 
     // PATCH
-    public void updateUser(int id, String name, String ruby, LocalDate birthday, String email) {
+    public User updateUser(int id, String name, String ruby, LocalDate birthday, String email) {
         User user = this.userMapper.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("user not found"));
         user.update(name, ruby, birthday, email);
         this.userMapper.updateUser(user);
+        return user;
     }
 
     // DELETE
