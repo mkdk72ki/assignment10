@@ -1,6 +1,7 @@
 package com.mkdk72ki.asgmt10.mapper;
 
 import com.github.database.rider.core.api.dataset.DataSet;
+import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
 import com.mkdk72ki.asgmt10.entity.User;
 import org.junit.jupiter.api.Test;
@@ -116,4 +117,41 @@ class UserMapperTest {
                 );
     }
 
+    // PATCH
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @ExpectedDataSet(value = "datasets/update-users.yml")
+    @Transactional
+    void IDで指定したユーザーのレコードが更新できること() {
+        User user = new User(1, "加藤花子", "kato hanako", LocalDate.of(1999, 02, 22), "kato@mkdk.com");
+        userMapper.updateUser(user);
+    }
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @ExpectedDataSet(value = "datasets/users.yml")
+    @Transactional
+    void 存在しないIDを指定したときにレコードが更新されないこと() {
+        User user = new User(99, "ジョン", "john", LocalDate.of(1999, 01, 23), "john@mkdk.com");
+        userMapper.updateUser(user);
+    }
+
+    // DELETE
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @ExpectedDataSet(value = "datasets/delete-users.yml")
+    @Transactional
+    void IDで指定したユーザーが削除されること() {
+        userMapper.deleteUser(4);
+    }
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @ExpectedDataSet(value = "datasets/users.yml")
+    @Transactional
+    void 存在しないIDを指定したときにレコードが削除されないこと() {
+        userMapper.deleteUser(99);
+    }
 }

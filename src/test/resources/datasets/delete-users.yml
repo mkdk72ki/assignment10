@@ -1,0 +1,16 @@
+users:
+  - id: 1
+    name: "山田太郎"
+    ruby: "yamada taro"
+    birthday: "1990-03-04"
+    email: "yamada@mkdk.com"
+  - id: 2
+    name: "山田花子"
+    ruby: "yamada hanako"
+    birthday: "2000-11-23"
+    email: "hanako@mkdk.com"
+  - id: 3
+    name: "小山田祐介"
+    ruby: "oyamada yusuke"
+    birthday: "2005-07-16"
+    email: "oyamada@mkdk.com"
