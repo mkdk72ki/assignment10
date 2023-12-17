@@ -32,11 +32,12 @@ class UserMapperTest {
     void 全てのユーザーが取得できること() {
         List<User> users = userMapper.findAll();
         assertThat(users)
-                .hasSize(3)
+                .hasSize(4)
                 .contains(
                         new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com"),
                         new User(2, "山田花子", "yamada hanako", LocalDate.of(2000, 11, 23), "hanako@mkdk.com"),
-                        new User(3, "小山田祐介", "oyamada yusuke", LocalDate.of(2005, 07, 16), "oyamada@mkdk.com")
+                        new User(3, "小山田祐介", "oyamada yusuke", LocalDate.of(2005, 07, 16), "oyamada@mkdk.com"),
+                        new User(4, "山田次郎", "YAMADA JIRO", LocalDate.of(1995, 12, 30), "jiro@mkdk.com")
                 );
     }
 
