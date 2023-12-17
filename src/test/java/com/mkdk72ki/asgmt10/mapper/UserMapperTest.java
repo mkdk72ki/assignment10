@@ -144,7 +144,7 @@ class UserMapperTest {
     @DataSet(value = "datasets/users.yml")
     @ExpectedDataSet(value = "datasets/delete-users.yml")
     @Transactional
-    void IDで指定したユーザーが削除されること() {
+    void IDで指定したユーザーが削除できること() {
         userMapper.deleteUser(4);
     }
 
