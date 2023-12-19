@@ -19,3 +19,8 @@ users:
     ruby: "kawano kumi"
     birthday: "1994-08-30"
     email: "kawano@mkdk.com"
+  - id: 5
+    name: "田村敦"
+    ruby: "tamura atsushi"
+    birthday: "1995-09-18"
+    email: "tamura@mkdk.com"
