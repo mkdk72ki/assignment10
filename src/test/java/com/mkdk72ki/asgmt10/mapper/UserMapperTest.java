@@ -27,7 +27,7 @@ class UserMapperTest {
     // GET
 
     @Test
-    @DataSet(value = "datasets/users.yml")
+    @DataSet(value = "test-datasets/users.yml")
     @Transactional
     void 全てのユーザーが取得できること() {
         List<User> users = userMapper.findAll();
@@ -42,7 +42,7 @@ class UserMapperTest {
     }
 
     @Test
-    @DataSet(value = "datasets/users.yml")
+    @DataSet(value = "test-datasets/users.yml")
     @Transactional
     void ルビで指定したユーザーが取得できること() {
         List<User> users = userMapper.findByRuby("yamada");
@@ -55,7 +55,7 @@ class UserMapperTest {
     }
 
     @Test
-    @DataSet(value = "datasets/users.yml")
+    @DataSet(value = "test-datasets/users.yml")
     @Transactional
     void 存在しないルビを指定したときに取得されるユーザーが空であること() {
         List<User> users = userMapper.findByRuby("John");
@@ -63,7 +63,7 @@ class UserMapperTest {
     }
 
     @Test
-    @DataSet(value = "datasets/users.yml")
+    @DataSet(value = "test-datasets/users.yml")
     @Transactional
     void IDで指定したユーザーが取得できること() {
         Optional<User> users = userMapper.findById(1);
@@ -74,7 +74,7 @@ class UserMapperTest {
     }
 
     @Test
-    @DataSet(value = "datasets/users.yml")
+    @DataSet(value = "test-datasets/users.yml")
     @Transactional
     void 存在しないIDを指定したときに取得されるユーザーが空であること() {
         Optional<User> users = userMapper.findById(99);
@@ -92,7 +92,7 @@ class UserMapperTest {
     }
 
     @Test
-    @DataSet(value = "datasets/users.yml")
+    @DataSet(value = "test-datasets/users.yml")
     @Transactional
     void 存在しないメールアドレスを指定したときに取得されるユーザーが空であること() {
         Optional<User> user = userMapper.findUser("john@mkdk.com");
@@ -102,7 +102,7 @@ class UserMapperTest {
     // POST
 
     @Test
-    @DataSet(value = "datasets/users.yml")
+    @DataSet(value = "test-datasets/users.yml")
     @Transactional
     void 新たにレコードが登録できること() {
         User user = new User(null, "加藤花子", "kato hanako", LocalDate.of(1999, 02, 22), "kato@mkdk.com");
@@ -121,8 +121,8 @@ class UserMapperTest {
     // PATCH
 
     @Test
-    @DataSet(value = "datasets/users.yml")
-    @ExpectedDataSet(value = "datasets/update-users.yml")
+    @DataSet(value = "test-datasets/users.yml")
+    @ExpectedDataSet(value = "test-datasets/update-users.yml")
     @Transactional
     void IDで指定したユーザーのレコードが更新できること() {
         User user = new User(1, "加藤花子", "kato hanako", LocalDate.of(1999, 02, 22), "kato@mkdk.com");
@@ -130,8 +130,8 @@ class UserMapperTest {
     }
 
     @Test
-    @DataSet(value = "datasets/users.yml")
-    @ExpectedDataSet(value = "datasets/users.yml")
+    @DataSet(value = "test-datasets/users.yml")
+    @ExpectedDataSet(value = "test-datasets/users.yml")
     @Transactional
     void 存在しないIDを指定したときにレコードが更新されないこと() {
         User user = new User(99, "ジョン", "john", LocalDate.of(1999, 01, 23), "john@mkdk.com");
@@ -141,16 +141,16 @@ class UserMapperTest {
     // DELETE
 
     @Test
-    @DataSet(value = "datasets/users.yml")
-    @ExpectedDataSet(value = "datasets/delete-users.yml")
+    @DataSet(value = "test-datasets/users.yml")
+    @ExpectedDataSet(value = "test-datasets/delete-users.yml")
     @Transactional
     void IDで指定したユーザーが削除できること() {
         userMapper.deleteUser(4);
     }
 
     @Test
-    @DataSet(value = "datasets/users.yml")
-    @ExpectedDataSet(value = "datasets/users.yml")
+    @DataSet(value = "test-datasets/users.yml")
+    @ExpectedDataSet(value = "test-datasets/users.yml")
     @Transactional
     void 存在しないIDを指定したときにレコードが削除されないこと() {
         userMapper.deleteUser(99);
