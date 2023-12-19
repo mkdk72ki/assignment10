@@ -50,24 +50,24 @@ public class UserRestApiIntegrationTest {
                     },
                     {
                         "id": 2,
-                        "name": "加藤花子",
-                        "ruby": "kato hanako",
+                        "name": "山田花子",
+                        "ruby": "yamada hanako",
                         "birthday": "2000-11-23",
-                        "email": "kato@mkdk.com"
+                        "email": "hanako@mkdk.com"
                     },
                     {
                         "id": 3,
-                        "name": "鈴木祐介",
-                        "ruby": "suzuki yusuke",
+                        "name": "小山田祐介",
+                        "ruby": "oyamada yusuke",
                         "birthday": "2005-07-16",
-                        "email": "suzuki@mkdk.com"
+                        "email": "oyamada@mkdk.com"
                     },
                     {
                         "id": 4,
-                        "name": "河野久美",
-                        "ruby": "kawano kumi",
-                        "birthday": "1994-08-30",
-                        "email": "kawano@mkdk.com"
+                        "name": "山田次郎",
+                        "ruby": "YAMADA JIRO",
+                        "birthday": "1995-12-30",
+                        "email": "jiro@mkdk.com"
                     }
                 ]
                                 """, response, JSONCompareMode.STRICT);
@@ -78,25 +78,25 @@ public class UserRestApiIntegrationTest {
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void ルビで指定したユーザーが取得できること() throws Exception {
-        String response = mockMvc.perform(MockMvcRequestBuilders.get("/users?ruby=ka"))
+        String response = mockMvc.perform(MockMvcRequestBuilders.get("/users?ruby=yamada"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
 
         JSONAssert.assertEquals("""
                     [
                     {
-                        "id": 2,
-                        "name": "加藤花子",
-                        "ruby": "kato hanako",
-                        "birthday": "2000-11-23",
-                        "email": "kato@mkdk.com"
+                        "id": 1,
+                        "name": "山田太郎",
+                        "ruby": "yamada taro",
+                        "birthday": "1990-03-04",
+                        "email": "yamada@mkdk.com"
                     },
                     {
-                        "id": 4,
-                        "name": "河野久美",
-                        "ruby": "kawano kumi",
-                        "birthday": "1994-08-30",
-                        "email": "kawano@mkdk.com"
+                        "id": 2,
+                        "name": "山田花子",
+                        "ruby": "yamada hanako",
+                        "birthday": "2000-11-23",
+                        "email": "hanako@mkdk.com"
                     }
                 ]
                                 """, response, JSONCompareMode.STRICT);
@@ -108,25 +108,25 @@ public class UserRestApiIntegrationTest {
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void ルビを大文字で指定したときにユーザーが取得できること() throws Exception {
-        String response = mockMvc.perform(MockMvcRequestBuilders.get("/users?ruby=KA"))
+        String response = mockMvc.perform(MockMvcRequestBuilders.get("/users?ruby=YAMADA"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
 
         JSONAssert.assertEquals("""
                     [
-                    {
-                        "id": 2,
-                        "name": "加藤花子",
-                        "ruby": "kato hanako",
-                        "birthday": "2000-11-23",
-                        "email": "kato@mkdk.com"
+                      {
+                        "id": 1,
+                        "name": "山田太郎",
+                        "ruby": "yamada taro",
+                        "birthday": "1990-03-04",
+                        "email": "yamada@mkdk.com"
                     },
                     {
-                        "id": 4,
-                        "name": "河野久美",
-                        "ruby": "kawano kumi",
-                        "birthday": "1994-08-30",
-                        "email": "kawano@mkdk.com"
+                        "id": 2,
+                        "name": "山田花子",
+                        "ruby": "yamada hanako",
+                        "birthday": "2000-11-23",
+                        "email": "hanako@mkdk.com"
                     }
                 ]
                                 """, response, JSONCompareMode.STRICT);
@@ -176,12 +176,11 @@ public class UserRestApiIntegrationTest {
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
 
         JSONAssert.assertEquals("""
-                                {
-
-                                "error": "Not Found",
-                                "timestamp": "2023-12-19T13:22:34.194271200+09:00[Asia/Tokyo]",
-                                "path": "/users/99",
-                                "status": "404"
+                {
+                    "error": "Not Found",
+                    "timestamp": "2023-12-19T13:22:34.194271200+09:00[Asia/Tokyo]",
+                    "path": "/users/99",
+                    "status": "404"
                 }
                 """, response, new CustomComparator(JSONCompareMode.STRICT, new Customization("timestamp", ((o1, o2) -> true))));
     }
