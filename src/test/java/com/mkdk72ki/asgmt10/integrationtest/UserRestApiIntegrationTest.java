@@ -218,7 +218,7 @@ public class UserRestApiIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/users")
                         .contentType(MediaType.APPLICATION_JSON).content("""
                                 {
-                                  "name": " ",
+                                  "name": "",
                                   "ruby": "tamura atsushi",
                                   "birthday": "1995-09-18",
                                   "email": "tamura@mkdk.com"
@@ -236,7 +236,7 @@ public class UserRestApiIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON).content("""
                                 {
                                   "name": "田村敦",
-                                  "ruby": " ",
+                                  "ruby": "",
                                   "birthday": "1995-09-18",
                                   "email": "tamura@mkdk.com"
                                  }
@@ -269,7 +269,7 @@ public class UserRestApiIntegrationTest {
                                 {
                                   "name": "田村敦",
                                   "ruby": "tamura atsushi",
-                                  "birthday": " ",
+                                  "birthday": "",
                                   "email": "tamura@mkdk.com"
                                  }
                                   """)).andExpect(MockMvcResultMatchers.status().isBadRequest())
@@ -286,7 +286,7 @@ public class UserRestApiIntegrationTest {
                                   "name": "田村敦",
                                   "ruby": "tamura atsushi",
                                   "birthday": "1995-09-18",
-                                  "email": " "
+                                  "email": ""
                                  }
                                   """)).andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
