@@ -215,7 +215,7 @@ public class UserRestApiIntegrationTest {
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void 名前が空文字で登録したときに400エラーが返されること() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/users")
+        String response = mockMvc.perform(MockMvcRequestBuilders.post("/users")
                         .contentType(MediaType.APPLICATION_JSON).content("""
                                 {
                                   "name": "",
@@ -226,13 +226,24 @@ public class UserRestApiIntegrationTest {
                                   """)).andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
 
+        JSONAssert.assertEquals("""
+                {
+                      "timestamp": "2023-12-21T23:33:01.365908900+09:00[Asia/Tokyo]",
+                      "message": {
+                          "name": "入力してください"
+                      },
+                      "status": "400",
+                      "path": "/users",
+                      "error": "Bad Request"
+                  }
+                            """, response, new CustomComparator(JSONCompareMode.STRICT, new Customization("timestamp", ((o1, o2) -> true))));
     }
 
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void ルビが空文字で登録したときに400エラーが返されること() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/users")
+        String response = mockMvc.perform(MockMvcRequestBuilders.post("/users")
                         .contentType(MediaType.APPLICATION_JSON).content("""
                                 {
                                   "name": "田村敦",
@@ -242,13 +253,25 @@ public class UserRestApiIntegrationTest {
                                  }
                                   """)).andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+        JSONAssert.assertEquals("""
+                {
+                      "timestamp": "2023-12-21T23:33:01.365908900+09:00[Asia/Tokyo]",
+                      "message": {
+                          "ruby": "入力してください"
+                      },
+                      "status": "400",
+                      "path": "/users",
+                      "error": "Bad Request"
+                  }
+                            """, response, new CustomComparator(JSONCompareMode.STRICT, new Customization("timestamp", ((o1, o2) -> true))));
     }
 
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void 名前が20字以上ルビが50字以上で登録したときに400エラーが返されること() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/users")
+        String response = mockMvc.perform(MockMvcRequestBuilders.post("/users")
                         .contentType(MediaType.APPLICATION_JSON).content("""
                                 {
                                   "name": "aaaaaaaaaaaaaaaaaaaaa",
@@ -258,13 +281,26 @@ public class UserRestApiIntegrationTest {
                                  }
                                   """)).andExpect(MockMvcResultMatchers.status().isBadRequest()).
                 andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+        JSONAssert.assertEquals("""
+                {
+                      "timestamp": "2023-12-21T23:33:01.365908900+09:00[Asia/Tokyo]",
+                      "message": {
+                          "name": "20字以内で入力してください",
+                          "ruby": "50字以内で入力してください"
+                      },
+                      "status": "400",
+                      "path": "/users",
+                      "error": "Bad Request"
+                  }
+                            """, response, new CustomComparator(JSONCompareMode.STRICT, new Customization("timestamp", ((o1, o2) -> true))));
     }
 
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void 誕生日が空文字で登録したときに400エラーが返されること() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/users")
+        String response = mockMvc.perform(MockMvcRequestBuilders.post("/users")
                         .contentType(MediaType.APPLICATION_JSON).content("""
                                 {
                                   "name": "田村敦",
@@ -274,13 +310,25 @@ public class UserRestApiIntegrationTest {
                                  }
                                   """)).andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+        JSONAssert.assertEquals("""
+                {
+                      "timestamp": "2023-12-21T23:33:01.365908900+09:00[Asia/Tokyo]",
+                      "message": {
+                          "birthday": "入力してください"
+                      },
+                      "status": "400",
+                      "path": "/users",
+                      "error": "Bad Request"
+                  }
+                            """, response, new CustomComparator(JSONCompareMode.STRICT, new Customization("timestamp", ((o1, o2) -> true))));
     }
 
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void メールアドレスが空文字で登録したときに400エラーが返されること() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/users")
+        String response = mockMvc.perform(MockMvcRequestBuilders.post("/users")
                         .contentType(MediaType.APPLICATION_JSON).content("""
                                 {
                                   "name": "田村敦",
@@ -290,13 +338,25 @@ public class UserRestApiIntegrationTest {
                                  }
                                   """)).andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+        JSONAssert.assertEquals("""
+                {
+                      "timestamp": "2023-12-21T23:33:01.365908900+09:00[Asia/Tokyo]",
+                      "message": {
+                          "email": "入力してください"
+                      },
+                      "status": "400",
+                      "path": "/users",
+                      "error": "Bad Request"
+                  }
+                            """, response, new CustomComparator(JSONCompareMode.STRICT, new Customization("timestamp", ((o1, o2) -> true))));
     }
 
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void メールアドレスが100字以上で登録したときに400エラーが返されること() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/users")
+        String response = mockMvc.perform(MockMvcRequestBuilders.post("/users")
                         .contentType(MediaType.APPLICATION_JSON).content("""
                                 {
                                   "name": "田村敦",
@@ -306,13 +366,25 @@ public class UserRestApiIntegrationTest {
                                  }
                                   """)).andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+        JSONAssert.assertEquals("""
+                {
+                      "timestamp": "2023-12-21T23:33:01.365908900+09:00[Asia/Tokyo]",
+                      "message": {
+                          "email": "100字以内で入力してください"
+                      },
+                      "status": "400",
+                      "path": "/users",
+                      "error": "Bad Request"
+                  }
+                            """, response, new CustomComparator(JSONCompareMode.STRICT, new Customization("timestamp", ((o1, o2) -> true))));
     }
 
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void 不適切な形式のメールアドレスで登録したときに400エラーが返されること() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/users")
+        String response = mockMvc.perform(MockMvcRequestBuilders.post("/users")
                         .contentType(MediaType.APPLICATION_JSON).content("""
                                 {
                                   "name": "田村敦",
@@ -322,6 +394,18 @@ public class UserRestApiIntegrationTest {
                                  }
                                   """)).andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+        JSONAssert.assertEquals("""
+                {
+                      "timestamp": "2023-12-21T23:33:01.365908900+09:00[Asia/Tokyo]",
+                      "message": {
+                          "email": "形式が正しくありません"
+                      },
+                      "status": "400",
+                      "path": "/users",
+                      "error": "Bad Request"
+                  }
+                            """, response, new CustomComparator(JSONCompareMode.STRICT, new Customization("timestamp", ((o1, o2) -> true))));
     }
 
     @Test
