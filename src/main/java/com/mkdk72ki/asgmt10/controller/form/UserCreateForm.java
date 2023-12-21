@@ -15,7 +15,7 @@ public class UserCreateForm {
     private String name;
 
     @NotBlank(message = "入力してください")
-    @Length(max = 50, message = "50字以上で入力してください")
+    @Length(max = 50, message = "50字以内で入力してください")
     private String ruby;
 
     @NotNull(message = "入力してください")
@@ -24,7 +24,7 @@ public class UserCreateForm {
 
     @NotBlank(message = "入力してください")
     @Length(max = 100, message = "100字以内で入力してください")
-    @Pattern(regexp = "^([a-zA-Z0-9])+([a-zA-Z0-9._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9._-])+$")
+    @Pattern(regexp = "^([a-zA-Z0-9])+([a-zA-Z0-9._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9._-])+$", message = "形式が正しくありません")
     private String email;
 
     public UserCreateForm(String name, String ruby, LocalDate birthday, String email) {
