@@ -35,7 +35,7 @@ jobs:
         distribution: 'oracle'
 
     - name: Test with Gradle
-      run: ./gradlew test
+      run: chmod +x ./gradlew test
       if: always()
 
     - name: Publish Test Report
