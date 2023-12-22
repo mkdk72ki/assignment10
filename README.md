@@ -1,4 +1,3 @@
-
 # assginment10
 7月度、旧第10回の課題です。  
 前回のプロジェクトを一部改変したものになります。
@@ -13,7 +12,6 @@
 ![image](https://github.com/mkdk72ki/assignment10/assets/143886913/18177996-5230-4057-89d7-07c74f364ad0)  
 ![image](https://github.com/mkdk72ki/assignment10/assets/143886913/b218e984-2a4c-4164-a4dd-002548a88018)
 
-git
 
 ## READ処理
 
@@ -125,4 +123,3 @@ DELETEリクエスト`http://localhost:8080/user/{id}`を実行すると、指�
 ![delete前](https://github.com/mkdk72ki/assignment10/assets/143886913/8e407e5b-5560-4b40-9de0-0d3f5093394d)  
 ![deleteOk](https://github.com/mkdk72ki/assignment10/assets/143886913/79efd993-4aa6-4796-b783-79a63a1b08b6)  
 ![deleteOkDb](https://github.com/mkdk72ki/assignment10/assets/143886913/fa102c02-71df-460a-b4ae-7ad782d411a1)  
-
