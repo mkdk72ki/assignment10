@@ -37,6 +37,7 @@ test.finalizedBy jacocoTestReport
 
 tasks.named('test') {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
 }
 
 checkstyle {
@@ -44,10 +45,9 @@ checkstyle {
 }
 
 jacocoTestReport {
+	dependsOn test
 	reports {
 		xml.required = true
 		html.required = false
 	}
 }
-
-check.dependsOn jacocoTestReport
