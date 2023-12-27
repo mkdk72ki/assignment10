@@ -74,8 +74,12 @@ public class User {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof User user)) return false;
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof User user)) {
+      return false;
+    }
     return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(ruby, user.ruby) && Objects.equals(birthday, user.birthday) && Objects.equals(email, user.email);
   }
 
