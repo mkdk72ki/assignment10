@@ -30,8 +30,8 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public List<User> findUsers(@RequestParam(required = false) String ruby){
-        List<User> getUsers = userService.findUsers(ruby);
+    public List<User> findUsers(@RequestParam(required = false) String rubyStartingWith) {
+        List<User> getUsers = userService.findUsers(rubyStartingWith);
         return getUsers;
     }
 

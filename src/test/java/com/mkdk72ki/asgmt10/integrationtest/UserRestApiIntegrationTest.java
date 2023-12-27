@@ -78,7 +78,7 @@ public class UserRestApiIntegrationTest {
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void ルビで指定したユーザーが取得できること() throws Exception {
-        String response = mockMvc.perform(MockMvcRequestBuilders.get("/users?ruby=yamada"))
+      String response = mockMvc.perform(MockMvcRequestBuilders.get("/users?rubyStartingWith=yamada"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
 
@@ -108,7 +108,7 @@ public class UserRestApiIntegrationTest {
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void ルビを大文字で指定したときにユーザーが取得できること() throws Exception {
-        String response = mockMvc.perform(MockMvcRequestBuilders.get("/users?ruby=YAMADA"))
+      String response = mockMvc.perform(MockMvcRequestBuilders.get("/users?rubyStartingWith=YAMADA"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
 
@@ -137,7 +137,7 @@ public class UserRestApiIntegrationTest {
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void 存在しないルビを指定したときに空のリストが返ること() throws Exception {
-        String response = mockMvc.perform(MockMvcRequestBuilders.get("/users?ruby=john"))
+      String response = mockMvc.perform(MockMvcRequestBuilders.get("/users?rubyStartingWith=john"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
 
