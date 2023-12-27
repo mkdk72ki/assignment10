@@ -33,8 +33,6 @@ tasks.withType(Test) {
 	systemProperty "file.encoding", "UTF-8"
 }
 
-test.finalizedBy jacocoTestReport
-
 tasks.named('test') {
 	useJUnitPlatform()
 	finalizedBy jacocoTestReport
