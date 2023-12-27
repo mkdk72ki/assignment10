@@ -10,21 +10,21 @@ import java.time.LocalDate;
 
 public class UserCreateForm {
 
-    @NotBlank(message = "入力してください")
-    @Length(max = 20, message = "20字以内で入力してください")
+    @NotBlank(groups = ValidGroup1.class, message = "入力してください")
+    @Length(groups = ValidGroup2.class, max = 20, message = "20字以内で入力してください")
     private String name;
 
-    @NotBlank(message = "入力してください")
-    @Length(max = 50, message = "50字以内で入力してください")
+    @NotBlank(groups = ValidGroup1.class, message = "入力してください")
+    @Length(groups = ValidGroup2.class, max = 50, message = "50字以内で入力してください")
     private String ruby;
 
-    @NotNull(message = "入力してください")
+    @NotNull(groups = ValidGroup1.class, message = "入力してください")
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private LocalDate birthday;
 
-    @NotBlank(message = "入力してください")
-    @Length(max = 100, message = "100字以内で入力してください")
-    @Pattern(regexp = "^([a-zA-Z0-9])+([a-zA-Z0-9._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9._-])+$", message = "形式が正しくありません")
+    @NotBlank(groups = ValidGroup1.class, message = "入力してください")
+    @Length(groups = ValidGroup2.class, max = 100, message = "100字以内で入力してください")
+    @Pattern(regexp = "^([a-zA-Z0-9])+([a-zA-Z0-9._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9._-])+$", groups = ValidGroup2.class, message = "形式が正しくありません")
     private String email;
 
     public UserCreateForm(String name, String ruby, LocalDate birthday, String email) {

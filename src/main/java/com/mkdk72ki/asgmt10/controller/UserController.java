@@ -1,5 +1,6 @@
 package com.mkdk72ki.asgmt10.controller;
 
+import com.mkdk72ki.asgmt10.controller.form.GroupOrder;
 import com.mkdk72ki.asgmt10.controller.form.UserCreateForm;
 import com.mkdk72ki.asgmt10.controller.form.UserUpdateForm;
 import com.mkdk72ki.asgmt10.controller.response.MessageResponse;
@@ -41,7 +42,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<MessageResponse> createUser(@RequestBody @Validated UserCreateForm userCreateForm, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<MessageResponse> createUser(@RequestBody @Validated(GroupOrder.class) UserCreateForm userCreateForm, UriComponentsBuilder uriComponentsBuilder) {
         User user = userService.createUser(userCreateForm.getName(), userCreateForm.getRuby(), userCreateForm.getBirthday(), userCreateForm.getEmail());
         URI uri = uriComponentsBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri();
         MessageResponse body = new MessageResponse("登録しました");
