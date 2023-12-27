@@ -26,17 +26,17 @@ public interface UserMapper {
 
   // POST
   @Select("SELECT * FROM users WHERE email = #{email}")
-  Optional<User> findUser(String email);
+  Optional<User> findByEmail(String email);
 
   @Insert("INSERT INTO users (name, ruby, birthday, email) VALUES (#{name}, #{ruby}, #{birthday}, #{email})")
   @Options(useGeneratedKeys = true, keyProperty = "id")
-  void createUser(User user);
+  void create(User user);
 
   // PATCH
   @Update("UPDATE users SET name = #{name}, ruby = #{ruby}, birthday = #{birthday}, email = #{email} WHERE id = #{id}")
-  void updateUser(User user);
+  void update(User user);
 
   // DELETE
   @Delete("DELETE FROM users WHERE id = #{id}")
-  void deleteUser(int id);
+  void delete(int id);
 }

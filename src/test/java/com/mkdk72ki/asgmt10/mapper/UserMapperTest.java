@@ -85,7 +85,7 @@ class UserMapperTest {
   @DataSet(value = "datasets/users.yml")
   @Transactional
   void 存在するメールアドレスを指定したときにそのユーザーのレコードが取得できること() {
-    Optional<User> user = userMapper.findUser("yamada@mkdk.com");
+    Optional<User> user = userMapper.findByEmail("yamada@mkdk.com");
     assertThat(user).contains(
         new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com")
     );
@@ -95,7 +95,7 @@ class UserMapperTest {
   @DataSet(value = "datasets/users.yml")
   @Transactional
   void 存在しないメールアドレスを指定したときに取得されるユーザーが空であること() {
-    Optional<User> user = userMapper.findUser("john@mkdk.com");
+    Optional<User> user = userMapper.findByEmail("john@mkdk.com");
     assertThat(user).isEmpty();
   }
 
@@ -106,7 +106,7 @@ class UserMapperTest {
   @Transactional
   void 新たにレコードが登録できること() {
     User user = new User(null, "加藤花子", "kato hanako", LocalDate.of(1999, 02, 22), "kato@mkdk.com");
-    userMapper.createUser(user);
+    userMapper.create(user);
     List<User> users = userMapper.findAll();
     assertThat(users).hasSize(5)
         .contains(
@@ -126,7 +126,7 @@ class UserMapperTest {
   @Transactional
   void IDで指定したユーザーのレコードが更新できること() {
     User user = new User(1, "加藤花子", "kato hanako", LocalDate.of(1999, 02, 22), "kato@mkdk.com");
-    userMapper.updateUser(user);
+    userMapper.update(user);
   }
 
   @Test
@@ -135,7 +135,7 @@ class UserMapperTest {
   @Transactional
   void 存在しないIDを指定したときにレコードが更新されないこと() {
     User user = new User(99, "ジョン", "john", LocalDate.of(1999, 01, 23), "john@mkdk.com");
-    userMapper.updateUser(user);
+    userMapper.update(user);
   }
 
   // DELETE
@@ -145,7 +145,7 @@ class UserMapperTest {
   @ExpectedDataSet(value = "datasets/delete-users.yml")
   @Transactional
   void IDで指定したユーザーが削除されること() {
-    userMapper.deleteUser(4);
+    userMapper.delete(4);
   }
 
   @Test
@@ -153,6 +153,6 @@ class UserMapperTest {
   @ExpectedDataSet(value = "datasets/users.yml")
   @Transactional
   void 存在しないIDを指定したときにレコードが削除されないこと() {
-    userMapper.deleteUser(99);
+    userMapper.delete(99);
   }
 }

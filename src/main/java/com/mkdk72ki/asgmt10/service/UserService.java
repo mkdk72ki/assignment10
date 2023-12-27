@@ -38,10 +38,10 @@ public class UserService {
   // POST
   public User createUser(String name, String ruby, LocalDate birthday, String email) {
     User user = new User(null, name, ruby, birthday, email);
-    if (userMapper.findUser(user.getEmail()).isPresent()) {
+    if (userMapper.findByEmail(user.getEmail()).isPresent()) {
       throw new UserExistsException("user already exists");
     } else {
-      userMapper.createUser(user);
+      userMapper.create(user);
       return user;
     }
   }
@@ -51,14 +51,14 @@ public class UserService {
     User user = this.userMapper.findById(id)
         .orElseThrow(() -> new UserNotFoundException("user not found"));
     user.update(name, ruby, birthday, email);
-    this.userMapper.updateUser(user);
+    this.userMapper.update(user);
   }
 
   // DELETE
   public void deleteUser(int id) {
     userMapper.findById(id)
         .orElseThrow(() -> new UserNotFoundException("user not found"));
-    userMapper.deleteUser(id);
+    userMapper.delete(id);
   }
 
 }
