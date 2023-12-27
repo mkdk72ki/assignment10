@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/mkdk72ki/assignment10/graph/badge.svg?token=ESZ8G4XUWC)](https://codecov.io/gh/mkdk72ki/assignment10)
+
 # assginment10
 7月度、旧第10回の課題です。  
 前回のプロジェクトを一部改変したものになります。
@@ -24,12 +26,14 @@ GETリクエスト `http://localhost:8080/users` を実行すると、格納さ�
 
 ### ルビ検索
   
-GETリクエスト `http://localhost:8080/users?ruby={ruby}` を実行すると、取得したクエリパラメータとルビが前方一致したレコードを取得し、JSON形式で返す。  
-![image](https://github.com/mkdk72ki/assignment10/assets/143886913/40fa355b-bad8-4925-96f1-5b68a26ec60d)  
-![image](https://github.com/mkdk72ki/assignment10/assets/143886913/d57d6ac1-d491-4d12-97cd-d375a8e366d7)  
+GETリクエスト `http://localhost:8080/users?rubyStartingWith={ruby}` を実行すると、取得したクエリパラメータとルビが前方一致したレコードを取得し、JSON形式で返す。  
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/515aa0a3-ed9d-4b3d-bd0d-53b6095451d2)  
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/5d4289df-7532-4f6d-b132-c7a85a2c200a)
+ 
 
-存在しないルビを指定した場合は404エラーを返す。  
-![image](https://github.com/mkdk72ki/assignment10/assets/143886913/4673b643-53fe-4311-af56-eb346741cb79)
+存在しないルビを指定した場合は空のリストを返す。  
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/72926770-d8f9-470a-bccc-ef1cecb271db)
+
 
 
 ### IDによる取得
@@ -72,32 +76,32 @@ curl --location 'http://localhost:8080/user' \
 ### バリデーション
 
 - nameが空文字の場合  
-![image](https://github.com/mkdk72ki/assignment10/assets/143886913/1b27e372-2fe4-472d-ab5a-0d3cbd2fe0ad)
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/5b1d007a-c087-430a-9182-ab66fb03fa69)  
 
 - nameが20字以上の場合
-![image](https://github.com/mkdk72ki/assignment10/assets/143886913/76931ebc-1ea8-4ce6-8351-c0f0ab67ab3c)
-  
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/f5d21931-1778-4ca3-874e-02a556e269fd)
+
   
 - rubyが空文字の場合    
-![image](https://github.com/mkdk72ki/assignment10/assets/143886913/b79202c4-3945-4cf5-a2a7-ed63059a8858)
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/b7e23163-5421-4282-adab-aa99c64e0a58)  
   
 - rubyが50字以上の場合
-![image](https://github.com/mkdk72ki/assignment10/assets/143886913/00a67f34-e3de-4647-a10f-45869ca4c6cc)  
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/36ed249c-1102-4ad9-abc1-554dae39556b)
+  
 
-  
 - birthdayが空文字の場合  
-![image](https://github.com/mkdk72ki/assignment10/assets/143886913/64868698-85aa-4a61-b4c4-3515bf85a3af)
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/ff3a8e7a-8243-4d3a-831b-8452a7ebb207)
   
-  
+
 - emailが空文字の場合    
-![image](https://github.com/mkdk72ki/assignment10/assets/143886913/562e817b-35e3-4b0a-adc4-41f1608a9e46)
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/0a63572d-7a84-4079-851d-c141dde63212)  
 
 - emailが100字以上の場合
-![image](https://github.com/mkdk72ki/assignment10/assets/143886913/a83c6052-d81d-425d-83ba-9182ad88a096)  
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/58a8bec3-5daf-4ab5-96d9-c4d79d12d774)
 
 - emailの形式が不適切な場合  
-![emailValidate](https://github.com/mkdk72ki/assignment10/assets/143886913/6d36eccc-4831-4e48-89a3-78bb36e82e20)  
-　　
+![image](https://github.com/mkdk72ki/assignment10/assets/143886913/da1ea832-80b8-4b21-8469-106a44b83063)  
+  
 
 ## UPDATE処理
 PATCHリクエストを実行すると、リクエストボディに含まれた情報でDBを更新し、メッセージをJSON形式で返す。
