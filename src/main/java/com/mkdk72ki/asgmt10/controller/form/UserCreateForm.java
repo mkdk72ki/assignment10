@@ -24,7 +24,8 @@ public class UserCreateForm {
 
   @NotBlank(groups = ValidGroup1.class, message = "入力してください")
   @Length(groups = ValidGroup2.class, max = 100, message = "100字以内で入力してください")
-  @Pattern(regexp = "^([a-zA-Z0-9])+([a-zA-Z0-9._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9._-])+$", groups = ValidGroup2.class, message = "形式が正しくありません")
+  @Pattern(regexp = "^([a-zA-Z0-9])+([a-zA-Z0-9._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9._-])+$",
+      groups = ValidGroup2.class, message = "形式が正しくありません")
   private String email;
 
   public UserCreateForm(String name, String ruby, LocalDate birthday, String email) {
