@@ -42,8 +42,7 @@ public class UserController {
   }
 
   @PostMapping("/users")
-  public ResponseEntity<MessageResponse> createUser(@RequestBody @Validated(GroupOrder.class)
-                                                    UserCreateForm userCreateForm, UriComponentsBuilder uriComponentsBuilder) {
+  public ResponseEntity<MessageResponse> createUser(@RequestBody @Validated(GroupOrder.class) UserCreateForm userCreateForm, UriComponentsBuilder uriComponentsBuilder) {
     User user = userService.createUser(userCreateForm.getName(), userCreateForm.getRuby(), userCreateForm.getBirthday(), userCreateForm.getEmail());
     URI uri = uriComponentsBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri();
     MessageResponse body = new MessageResponse("登録しました");
