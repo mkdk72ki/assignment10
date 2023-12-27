@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class User {
-  private Integer id;
+  private final Integer id;
   private String name;
   private String ruby;
   private LocalDate birthday;
@@ -56,27 +56,19 @@ public class User {
 
   public void update(String name, String ruby, LocalDate birthday, String email) {
     if (name != null) {
-
       this.setName(name);
-
     }
 
     if (ruby != null) {
-
       this.setRuby(ruby);
-
     }
 
     if (birthday != null) {
-
       this.setBirthday(birthday);
-
     }
 
     if (email != null) {
-
       this.setEmail(email);
-
     }
   }
 
