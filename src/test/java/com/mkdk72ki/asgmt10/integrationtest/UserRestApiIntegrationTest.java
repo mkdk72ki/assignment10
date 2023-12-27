@@ -433,4 +433,116 @@ public class UserRestApiIntegrationTest {
                               }
                 """, response, new CustomComparator(JSONCompareMode.STRICT, new Customization("timestamp", ((o1, o2) -> true))));
     }
+
+
+    // PATCH
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @ExpectedDataSet(value = "datasets/update-users.yml")
+    @Transactional
+    void ユーザーの情報が更新できること() throws Exception {
+        String response = mockMvc.perform(MockMvcRequestBuilders.patch("/users/{id}", 1)
+                        .contentType(MediaType.APPLICATION_JSON).content("""
+                                {
+                                    "name": "加藤花子",
+                                    "ruby": "kato hanako",
+                                    "birthday": "1999-02-22",
+                                    "email": "kato@mkdk.com"
+                                }
+                                 """)).andExpect(MockMvcResultMatchers.status().isOk()).
+                andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+        JSONAssert.assertEquals("""
+                {
+                    "message": "更新しました"
+                }
+                            """, response, JSONCompareMode.STRICT);
+
+    }
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @ExpectedDataSet(value = "datasets/update-users-email.yml")
+    @Transactional
+    void ユーザーの情報が一部更新できること() throws Exception {
+        String response = mockMvc.perform(MockMvcRequestBuilders.patch("/users/{id}", 1)
+                        .contentType(MediaType.APPLICATION_JSON).content("""
+                                {
+                                    "email": "taro@mkdk.com"
+                                }
+                                 """)).andExpect(MockMvcResultMatchers.status().isOk()).
+                andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+        JSONAssert.assertEquals("""
+                {
+                    "message": "更新しました"
+                }
+                            """, response, JSONCompareMode.STRICT);
+
+    }
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @Transactional
+    void 更新時に存在しないIDを指定したときに404エラーが返されること() throws Exception {
+        String response = mockMvc.perform(MockMvcRequestBuilders.patch("/users/{id}", 99)
+                        .contentType(MediaType.APPLICATION_JSON).content("""
+                                {
+                                    "name": "ジョン",
+                                    "ruby": "John",
+                                    "birthday": "1999-01-23",
+                                    "email": "john@mkdk.com"
+                                }
+                                 """))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+        JSONAssert.assertEquals("""
+                {
+                    "error": "Not Found",
+                    "timestamp": "2023-12-19T13:22:34.194271200+09:00[Asia/Tokyo]",
+                    "path": "/users/99",
+                    "status": "404"
+                }
+                """, response, new CustomComparator(JSONCompareMode.STRICT, new Customization("timestamp", ((o1, o2) -> true))));
+    }
+
+    // DELETE
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @ExpectedDataSet(value = "datasets/delete-users.yml")
+    @Transactional
+    void ユーザーが削除できること() throws Exception {
+        String response = mockMvc.perform(MockMvcRequestBuilders.delete("/users/{id}", 4))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+        JSONAssert.assertEquals("""
+                {
+                    "message": "削除しました"
+                }
+                            """, response, JSONCompareMode.STRICT);
+
+    }
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @Transactional
+    void 削除時に存在しないIDを指定したときに404エラーが返されること() throws Exception {
+        String response = mockMvc.perform(MockMvcRequestBuilders.delete("/users/{id}", 99))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+        JSONAssert.assertEquals("""
+                {
+                    "error": "Not Found",
+                    "timestamp": "2023-12-19T13:22:34.194271200+09:00[Asia/Tokyo]",
+                    "path": "/users/99",
+                    "status": "404"
+                }
+                """, response, new CustomComparator(JSONCompareMode.STRICT, new Customization("timestamp", ((o1, o2) -> true))));
+    }
+
 }

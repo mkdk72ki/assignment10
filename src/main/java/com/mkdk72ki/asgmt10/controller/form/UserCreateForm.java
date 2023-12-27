@@ -10,43 +10,44 @@ import java.time.LocalDate;
 
 public class UserCreateForm {
 
-    @NotBlank(message = "入力してください")
-    @Length(max = 20, message = "20字以内で入力してください")
-    private String name;
+  @NotBlank(groups = ValidGroup1.class, message = "入力してください")
+  @Length(groups = ValidGroup2.class, max = 20, message = "20字以内で入力してください")
+  private String name;
 
-    @NotBlank(message = "入力してください")
-    @Length(max = 50, message = "50字以内で入力してください")
-    private String ruby;
+  @NotBlank(groups = ValidGroup1.class, message = "入力してください")
+  @Length(groups = ValidGroup2.class, max = 50, message = "50字以内で入力してください")
+  private String ruby;
 
-    @NotNull(message = "入力してください")
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
-    private LocalDate birthday;
+  @NotNull(groups = ValidGroup1.class, message = "入力してください")
+  @DateTimeFormat(pattern = "yyyy-mm-dd")
+  private LocalDate birthday;
 
-    @NotBlank(message = "入力してください")
-    @Length(max = 100, message = "100字以内で入力してください")
-    @Pattern(regexp = "^([a-zA-Z0-9])+([a-zA-Z0-9._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9._-])+$", message = "形式が正しくありません")
-    private String email;
+  @NotBlank(groups = ValidGroup1.class, message = "入力してください")
+  @Length(groups = ValidGroup2.class, max = 100, message = "100字以内で入力してください")
+  @Pattern(regexp = "^([a-zA-Z0-9])+([a-zA-Z0-9._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9._-])+$",
+      groups = ValidGroup2.class, message = "形式が正しくありません")
+  private String email;
 
-    public UserCreateForm(String name, String ruby, LocalDate birthday, String email) {
-        this.name = name;
-        this.ruby = ruby;
-        this.birthday = birthday;
-        this.email = email;
-    }
+  public UserCreateForm(String name, String ruby, LocalDate birthday, String email) {
+    this.name = name;
+    this.ruby = ruby;
+    this.birthday = birthday;
+    this.email = email;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getRuby() {
-        return ruby;
-    }
+  public String getRuby() {
+    return ruby;
+  }
 
-    public LocalDate getBirthday() {
-        return birthday;
-    }
+  public LocalDate getBirthday() {
+    return birthday;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public String getEmail() {
+    return email;
+  }
 }
