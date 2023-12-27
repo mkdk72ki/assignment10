@@ -13,52 +13,52 @@ import java.util.Objects;
 @Service
 public class UserService {
 
-    private final UserMapper userMapper;
+  private final UserMapper userMapper;
 
-    public UserService(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
+  public UserService(UserMapper userMapper) {
+    this.userMapper = userMapper;
+  }
 
-    // GET
-    public List<User> findUsers(String ruby) {
-        List<User> getUsers;
-        if (Objects.isNull(ruby)) {
-            getUsers = userMapper.findAll();
-        } else {
-            getUsers = userMapper.findByRuby(ruby.toLowerCase());
-        }
-        return getUsers;
+  // GET
+  public List<User> findUsers(String ruby) {
+    List<User> getUsers;
+    if (Objects.isNull(ruby)) {
+      getUsers = userMapper.findAll();
+    } else {
+      getUsers = userMapper.findByRuby(ruby.toLowerCase());
     }
+    return getUsers;
+  }
 
-    public User findById(int id) {
-        return userMapper.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("user not found"));
-    }
+  public User findById(int id) {
+    return userMapper.findById(id)
+        .orElseThrow(() -> new UserNotFoundException("user not found"));
+  }
 
-    // POST
-    public User createUser(String name, String ruby, LocalDate birthday, String email) {
-        User user = new User(null, name, ruby, birthday, email);
-        if (userMapper.findUser(user.getEmail()).isPresent()) {
-            throw new UserExistsException("user already exists");
-        } else {
-            userMapper.createUser(user);
-            return user;
-        }
+  // POST
+  public User createUser(String name, String ruby, LocalDate birthday, String email) {
+    User user = new User(null, name, ruby, birthday, email);
+    if (userMapper.findByEmail(user.getEmail()).isPresent()) {
+      throw new UserExistsException("user already exists");
+    } else {
+      userMapper.create(user);
+      return user;
     }
+  }
 
-    // PATCH
-    public void updateUser(int id, String name, String ruby, LocalDate birthday, String email) {
-        User user = this.userMapper.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("user not found"));
-        user.update(name, ruby, birthday, email);
-        this.userMapper.updateUser(user);
-    }
+  // PATCH
+  public void updateUser(int id, String name, String ruby, LocalDate birthday, String email) {
+    User user = this.userMapper.findById(id)
+        .orElseThrow(() -> new UserNotFoundException("user not found"));
+    user.update(name, ruby, birthday, email);
+    this.userMapper.update(user);
+  }
 
-    // DELETE
-    public void deleteUser(int id) {
-        userMapper.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("user not found"));
-        userMapper.deleteUser(id);
-    }
+  // DELETE
+  public void deleteUser(int id) {
+    userMapper.findById(id)
+        .orElseThrow(() -> new UserNotFoundException("user not found"));
+    userMapper.delete(id);
+  }
 
 }

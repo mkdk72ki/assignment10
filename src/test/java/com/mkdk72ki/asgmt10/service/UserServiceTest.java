@@ -89,18 +89,18 @@ class UserServiceTest {
     @Test
     public void 正常に新規のユーザーが登録できること() throws Exception {
         User user = new User(null, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com");
-        doNothing().when(userMapper).createUser(user);
+        doNothing().when(userMapper).create(user);
 
         User actual = userService.createUser("山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com");
         assertThat(actual).isEqualTo(user);
-        verify(userMapper, times(1)).createUser(user);
+        verify(userMapper, times(1)).create(user);
     }
 
     @Test
     public void 既に存在するメールアドレスを指定したときに適切な例外が返されること() throws Exception {
         User user = new User(null, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com");
         String email = "yamada@mkdk.com";
-        doReturn(Optional.of(user)).when(userMapper).findUser(email);
+        doReturn(Optional.of(user)).when(userMapper).findByEmail(email);
         assertThrows(UserExistsException.class, () -> {
             userService.createUser("山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com");
         });
@@ -114,7 +114,7 @@ class UserServiceTest {
         User user = new User(1, "加藤花子", "kato hanako", LocalDate.of(2000, 11, 23), "kato@mkdk.com");
         userService.updateUser(user.getId(), user.getName(), user.getRuby(), user.getBirthday(), user.getEmail());
         verify(userMapper, times(1)).findById(1);
-        verify(userMapper, times(1)).updateUser(user);
+        verify(userMapper, times(1)).update(user);
     }
 
     @Test
@@ -124,7 +124,7 @@ class UserServiceTest {
         userService.updateUser(user.getId(), user.getName(), user.getRuby(), user.getBirthday(), user.getEmail());
         User updatedUser = new User(1, "加藤花子", "kato hanako", LocalDate.of(1990, 03, 04), "yamada@mkdk.com");
         verify(userMapper, times(1)).findById(1);
-        verify(userMapper, times(1)).updateUser(updatedUser);
+        verify(userMapper, times(1)).update(updatedUser);
     }
 
     @Test
@@ -134,7 +134,7 @@ class UserServiceTest {
         userService.updateUser(user.getId(), user.getName(), user.getRuby(), user.getBirthday(), user.getEmail());
         User updatedUser = new User(1, "山田太郎", "yamada taro", LocalDate.of(2000, 11, 23), "yamada@mkdk.com");
         verify(userMapper, times(1)).findById(1);
-        verify(userMapper, times(1)).updateUser(updatedUser);
+        verify(userMapper, times(1)).update(updatedUser);
     }
 
     @Test
@@ -144,7 +144,7 @@ class UserServiceTest {
         userService.updateUser(user.getId(), user.getName(), user.getRuby(), user.getBirthday(), user.getEmail());
         User updatedUser = new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "taro@mkdk.com");
         verify(userMapper, times(1)).findById(1);
-        verify(userMapper, times(1)).updateUser(updatedUser);
+        verify(userMapper, times(1)).update(updatedUser);
     }
 
     @Test
@@ -154,7 +154,7 @@ class UserServiceTest {
             userService.updateUser(99, "ジョン", "john", LocalDate.of(1999, 01, 23), "john@mkdk.com");
         });
         verify(userMapper, times(1)).findById(99);
-        verify(userMapper, times(0)).updateUser(new User(99, "ジョン", "john", LocalDate.of(1999, 01, 23), "john@mkdk.com"));
+        verify(userMapper, times(0)).update(new User(99, "ジョン", "john", LocalDate.of(1999, 01, 23), "john@mkdk.com"));
     }
 
     // DELETE
@@ -164,7 +164,7 @@ class UserServiceTest {
         doReturn(Optional.of(new User(1, "山田太郎", "yamada taro", LocalDate.of(1990, 03, 04), "yamada@mkdk.com"))).when(userMapper).findById(1);
         userService.deleteUser(1);
         verify(userMapper, times(1)).findById(1);
-        verify(userMapper, times(1)).deleteUser(1);
+        verify(userMapper, times(1)).delete(1);
     }
 
     @Test
@@ -174,7 +174,7 @@ class UserServiceTest {
             userService.deleteUser(99);
         });
         verify(userMapper, times(1)).findById(99);
-        verify(userMapper, times(0)).deleteUser(99);
+        verify(userMapper, times(0)).delete(99);
     }
 
 }
